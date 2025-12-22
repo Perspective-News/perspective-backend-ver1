@@ -1,0 +1,11 @@
+pandas
+requests
+feedparser
+trafilatura
+beautifulsoup4
+lxml
+scikit-learn
+sentence-transformers
+numpy
+tqdm
+keybert
