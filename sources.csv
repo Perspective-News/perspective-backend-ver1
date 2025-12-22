@@ -1,0 +1,25 @@
+ssource_name,source_type,source_url,country
+BBC News South Asia,rss,https://feeds.bbci.co.uk/news/world/south_asia/rss.xml,Regional
+Al Jazeera South Asia,rss,https://www.aljazeera.com/xml/rss/all.xml,Regional
+The Hindu,rss,https://www.thehindu.com/news/national/feeder/default.rss,India
+Indian Express,rss,https://indianexpress.com/feed/,India
+NDTV,rss,https://feeds.feedburner.com/ndtvnews-top-stories,India
+Dawn,rss,https://www.dawn.com/feeds/home,Pakistan
+The Express Tribune,rss,https://tribune.com.pk/feed,Pakistan
+Geo News,rss,https://www.geo.tv/rss/1,Pakistan
+The Daily Star,rss,https://www.thedailystar.net/rss.xml,Bangladesh
+Dhaka Tribune,rss,https://www.dhakatribune.com/feed,Bangladesh
+BDNews24,rss,https://bdnews24.com/?widgetName=rssfeed,Bangladesh
+Daily Mirror Sri Lanka,rss,http://www.dailymirror.lk/rss.xml,Sri Lanka
+Sunday Times Sri Lanka,rss,http://www.sundaytimes.lk/rss.xml,Sri Lanka
+News First Sri Lanka,rss,https://www.newsfirst.lk/feed/,Sri Lanka
+The Kathmandu Post,rss,https://kathmandupost.com/rss,Nepal
+MyRepublica,rss,https://myrepublica.nagariknetwork.com/rss,Nepal
+OnlineKhabar,rss,https://english.onlinekhabar.com/feed,Nepal
+Kuensel,rss,https://kuenselonline.com/feed/,Bhutan
+BBS Bhutan,rss,http://www.bbs.bt/news/?feed=rss,Bhutan
+Sun Online,rss,https://sun.mv/rss,Maldives
+Mihaaru,rss,https://mihaaru.com/rss,Maldives
+TOLOnews,rss,https://tolonews.com/rss,Afghanistan
+Khaama Press,rss,https://www.khaama.com/feed/,Afghanistan
+Pajhwok Afghan News,rss,https://pajhwok.com/feed/,Afghanistan
