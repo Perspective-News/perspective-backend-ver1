@@ -1,4 +1,4 @@
-ssource_name,source_type,source_url,country
+source_name,source_type,source_url,country
 BBC News South Asia,rss,https://feeds.bbci.co.uk/news/world/south_asia/rss.xml,Regional
 Al Jazeera South Asia,rss,https://www.aljazeera.com/xml/rss/all.xml,Regional
 The Hindu,rss,https://www.thehindu.com/news/national/feeder/default.rss,India

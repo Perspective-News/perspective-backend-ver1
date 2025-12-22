@@ -192,14 +192,15 @@ def fetch_from_url_list(source_name: str, list_url: str, max_items: int = 50) ->
 
 
 def load_sources(sources_path: str) -> pd.DataFrame:
-    """Load the sources CSV file."""
-    df = pd.read_csv(sources_path)
+    # handle BOM + whitespace in headers
+    df = pd.read_csv(sources_path, encoding="utf-8-sig")
+    df.columns = [c.strip() for c in df.columns]
+
     required = {"source_name", "source_type", "source_url"}
     missing = required - set(df.columns)
     if missing:
-        raise ValueError(f"sources file missing columns: {missing}")
+        raise ValueError(f"sources file missing columns: {missing}. Found: {list(df.columns)}")
     return df
-
 
 def ingest_all_sources(sources_df: pd.DataFrame, max_items_per_source: int = 50) -> pd.DataFrame:
     """Ingest articles from all sources in the given DataFrame."""
