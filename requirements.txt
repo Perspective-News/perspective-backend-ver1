@@ -1,11 +1,11 @@
-pandas
 requests
+pandas
 feedparser
-trafilatura
+numpy
 beautifulsoup4
 lxml
-scikit-learn
+trafilatura
 sentence-transformers
-numpy
-tqdm
+scikit-learn
 keybert
+tqdm

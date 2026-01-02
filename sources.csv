@@ -1,25 +1,85 @@
-source_name,source_type,source_url,country
-BBC News South Asia,rss,https://feeds.bbci.co.uk/news/world/south_asia/rss.xml,Regional
-Al Jazeera South Asia,rss,https://www.aljazeera.com/xml/rss/all.xml,Regional
-The Hindu,rss,https://www.thehindu.com/news/national/feeder/default.rss,India
-Indian Express,rss,https://indianexpress.com/feed/,India
-NDTV,rss,https://feeds.feedburner.com/ndtvnews-top-stories,India
-Dawn,rss,https://www.dawn.com/feeds/home,Pakistan
-The Express Tribune,rss,https://tribune.com.pk/feed,Pakistan
-Geo News,rss,https://www.geo.tv/rss/1,Pakistan
-The Daily Star,rss,https://www.thedailystar.net/rss.xml,Bangladesh
-Dhaka Tribune,rss,https://www.dhakatribune.com/feed,Bangladesh
-BDNews24,rss,https://bdnews24.com/?widgetName=rssfeed,Bangladesh
-Daily Mirror Sri Lanka,rss,http://www.dailymirror.lk/rss.xml,Sri Lanka
-Sunday Times Sri Lanka,rss,http://www.sundaytimes.lk/rss.xml,Sri Lanka
-News First Sri Lanka,rss,https://www.newsfirst.lk/feed/,Sri Lanka
-The Kathmandu Post,rss,https://kathmandupost.com/rss,Nepal
-MyRepublica,rss,https://myrepublica.nagariknetwork.com/rss,Nepal
-OnlineKhabar,rss,https://english.onlinekhabar.com/feed,Nepal
-Kuensel,rss,https://kuenselonline.com/feed/,Bhutan
-BBS Bhutan,rss,http://www.bbs.bt/news/?feed=rss,Bhutan
-Sun Online,rss,https://sun.mv/rss,Maldives
-Mihaaru,rss,https://mihaaru.com/rss,Maldives
-TOLOnews,rss,https://tolonews.com/rss,Afghanistan
-Khaama Press,rss,https://www.khaama.com/feed/,Afghanistan
-Pajhwok Afghan News,rss,https://pajhwok.com/feed/,Afghanistan
+source_name,source_type,source_url,country,region,language
+AzerNews,rss,https://www.azernews.az/rss.xml,Azerbaijan,central-asia,english
+Astana Times,rss,https://astanatimes.com/feed/,Kazakhstan,central-asia,english
+AKIpress,rss,https://akipress.com/rss/,Kyrgyzstan,central-asia,english
+24.kg,rss,https://24.kg/rss/,Kyrgyzstan,central-asia,russian
+Eurasianet,rss,https://eurasianet.org/feed,Regional,central-asia,english
+Times of Central Asia,rss,https://timesca.com/feed/,Regional,central-asia,english
+Tajikistan Times,rss,https://tajikistantimes.tj/feed/,Tajikistan,central-asia,english
+Turkmen Portal,rss,https://turkmenportal.com/en/rss,Turkmenistan,central-asia,english
+UzDaily,rss,https://www.uzdaily.com/rss/,Uzbekistan,central-asia,english
+Global Times,rss,https://www.globaltimes.cn/rss/outbrain.xml,China,east-asia,english
+People's Daily English,rss,http://en.people.cn/rss/politics.xml,China,east-asia,english
+South China Morning Post,rss,https://www.scmp.com/rss/91/feed,Hong Kong,east-asia,english
+Japan Times,rss,https://www.japantimes.co.jp/feed/topstories/,Japan,east-asia,english
+NHK World,rss,https://www3.nhk.or.jp/rss/news/cat0.xml,Japan,east-asia,english
+Nikkei Asia,rss,https://asia.nikkei.com/rss,Japan,east-asia,english
+Asahi Shimbun,rss,https://www.asahi.com/rss/asahi/newsheadlines.rdf,Japan,east-asia,japanese
+Mainichi Shimbun,rss,https://mainichi.jp/rss/etc/mainichi-flash.rss,Japan,east-asia,japanese
+Chosun Ilbo,rss,https://english.chosun.com/rss,South Korea,east-asia,english
+JoongAng Ilbo,rss,https://koreajoongangdaily.joins.com/rss,South Korea,east-asia,english
+Korea Herald,rss,http://www.koreaherald.com/rss,South Korea,east-asia,english
+Yonhap News,rss,https://en.yna.co.kr/RSS/news.xml,South Korea,east-asia,english
+Liberty Times,rss,https://www.ltn.com.tw/rss,Taiwan,east-asia,chinese
+Focus Taiwan,rss,https://focustaiwan.tw/rss,Taiwan,east-asia,english
+Taipei Times,rss,https://www.taipeitimes.com/rss/front,Taiwan,east-asia,english
+Iran International,rss,https://www.iranintl.com/en/rss,Iran,middle-east,english
+Tehran Times,rss,https://www.tehrantimes.com/rss,Iran,middle-east,english
+Haaretz English,rss,https://www.haaretz.com/cmlink/1.628829,Israel,middle-east,english
+Times of Israel,rss,https://www.timesofisrael.com/feed/,Israel,middle-east,english
+Ynet News,rss,https://www.ynetnews.com/category/3082,Israel,middle-east,english
+Jordan Times,rss,https://jordantimes.com/rss,Jordan,middle-east,english
+Daily Star Lebanon,rss,https://www.dailystar.com.lb/RSS.aspx,Lebanon,middle-east,english
+Middle East Eye,rss,https://www.middleeasteye.net/rss,Regional,middle-east,english
+Al Arabiya English,rss,https://english.alarabiya.net/feed,Saudi Arabia,middle-east,english
+Arab News,rss,https://www.arabnews.com/rss.xml,Saudi Arabia,middle-east,english
+Asharq Al-Awsat,rss,https://english.aawsat.com/rss.xml,Saudi Arabia,middle-east,english
+Anadolu Agency,rss,https://www.aa.com.tr/en/rss/default?cat=guncel,Turkey,middle-east,english
+Gulf News,rss,https://gulfnews.com/rss,UAE,middle-east,english
+Khaleej Times,rss,https://www.khaleejtimes.com/rss,UAE,middle-east,english
+Khaama Press,rss,https://www.khaama.com/feed/,Afghanistan,south-asia,english
+Pajhwok Afghan News,rss,https://pajhwok.com/feed/,Afghanistan,south-asia,english
+TOLOnews,rss,https://tolonews.com/rss,Afghanistan,south-asia,english
+BDNews24,rss,https://bdnews24.com/?widgetName=rssfeed,Bangladesh,south-asia,english
+Dhaka Tribune,rss,https://www.dhakatribune.com/feed,Bangladesh,south-asia,english
+Prothom Alo English,rss,https://en.prothomalo.com/feed,Bangladesh,south-asia,english
+The Daily Star,rss,https://www.thedailystar.net/rss.xml,Bangladesh,south-asia,english
+BBS Bhutan,rss,http://www.bbs.bt/news/?feed=rss,Bhutan,south-asia,english
+Kuensel,rss,https://kuenselonline.com/feed/,Bhutan,south-asia,english
+Indian Express,rss,https://indianexpress.com/feed/,India,south-asia,english
+NDTV,rss,https://feeds.feedburner.com/ndtvnews-top-stories,India,south-asia,english
+The Hindu,rss,https://www.thehindu.com/news/national/feeder/default.rss,India,south-asia,english
+Dainik Bhaskar,rss,https://www.bhaskar.com/rss-feed/,India,south-asia,hindi
+Hindustan Times Hindi,rss,https://www.livehindustan.com/rss,India,south-asia,hindi
+The Hindu Hindi,rss,https://www.thehindu.com/news/national/hindi/feeder/default.rss,India,south-asia,hindi
+The Hindu Tamil,rss,https://www.thehindu.com/feeder/default.rss,India,south-asia,tamil
+Mihaaru,rss,https://mihaaru.com/rss,Maldives,south-asia,english
+Sun Online,rss,https://sun.mv/rss,Maldives,south-asia,english
+MyRepublica,rss,https://myrepublica.nagariknetwork.com/rss,Nepal,south-asia,english
+OnlineKhabar,rss,https://english.onlinekhabar.com/feed,Nepal,south-asia,english
+The Kathmandu Post,rss,https://kathmandupost.com/rss,Nepal,south-asia,english
+Dawn,rss,https://www.dawn.com/feeds/home,Pakistan,south-asia,english
+Geo News,rss,https://www.geo.tv/rss/1,Pakistan,south-asia,english
+The Express Tribune,rss,https://tribune.com.pk/feed,Pakistan,south-asia,english
+ARY News,rss,https://arynews.tv/feed/,Pakistan,south-asia,urdu
+Al Jazeera South Asia,rss,https://www.aljazeera.com/xml/rss/all.xml,Regional,south-asia,english
+BBC News South Asia,rss,https://feeds.bbci.co.uk/news/world/south_asia/rss.xml,Regional,south-asia,english
+Daily Mirror SL,rss,https://www.dailymirror.lk/rss,Sri Lanka,south-asia,english
+Daily Mirror Sri Lanka,rss,http://www.dailymirror.lk/rss.xml,Sri Lanka,south-asia,english
+News First Sri Lanka,rss,https://www.newsfirst.lk/feed/,Sri Lanka,south-asia,english
+Sunday Times Sri Lanka,rss,http://www.sundaytimes.lk/rss.xml,Sri Lanka,south-asia,english
+Cambodia Daily,rss,https://english.cambodiadaily.com/feed,Cambodia,southeast-asia,english
+Khmer Times,rss,https://www.khmertimeskh.com/feed/,Cambodia,southeast-asia,english
+Jakarta Post,rss,https://www.thejakartapost.com/rss,Indonesia,southeast-asia,english
+Laotian Times,rss,https://laotiantimes.com/feed/,Laos,southeast-asia,english
+Bernama,rss,https://www.bernama.com/en/rss.xml,Malaysia,southeast-asia,english
+Malay Mail,rss,https://www.malaymail.com/rss,Malaysia,southeast-asia,english
+Myanmar Now,rss,https://myanmar-now.org/en/feed/,Myanmar,southeast-asia,english
+The Irrawaddy,rss,https://www.irrawaddy.com/feed,Myanmar,southeast-asia,english
+Philippine Daily Inquirer,rss,https://www.inquirer.net/fullfeed,Philippines,southeast-asia,english
+Rappler,rss,https://www.rappler.com/rss,Philippines,southeast-asia,english
+Channel NewsAsia,rss,https://www.channelnewsasia.com/rssfeeds/8396082,Singapore,southeast-asia,english
+Straits Times,rss,https://www.straitstimes.com/news/world/rss.xml,Singapore,southeast-asia,english
+Bangkok Post,rss,https://www.bangkokpost.com/rss/data/topstories.xml,Thailand,southeast-asia,english
+Vietnam News,rss,https://vietnamnews.vn/rss,Vietnam,southeast-asia,english
+VnExpress International,rss,https://e.vnexpress.net/rss,Vietnam,southeast-asia,english
