@@ -1,0 +1,89 @@
+# Runs the Perspective News pipeline every 5 hours and sends the result
+# to the Lovable site's backend (a Lovable Cloud edge function).
+#
+# Put this file in the perspective-backend-ver1 repo at:
+#   .github/workflows/refresh-stories.yml
+#
+# Required repo secrets (Settings → Secrets and variables → Actions):
+#   INGEST_URL    – the full URL of the Lovable edge function, e.g.
+#                   https://<project-ref>.supabase.co/functions/v1/ingest-stories
+#   INGEST_TOKEN  – a long random string; the same value is saved as a
+#                   secret in Lovable so the function only accepts your uploads
+
+name: Refresh stories
+
+on:
+  schedule:
+    # GitHub cron is in UTC: 00:00, 05:00, 10:00, 15:00, 20:00 UTC
+    - cron: "0 */5 * * *"
+  workflow_dispatch: {} # adds a "Run workflow" button for manual runs
+
+# Never let two runs overlap; a new run waits for the previous one.
+concurrency:
+  group: refresh-stories
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Cache embedding model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-all-MiniLM-L6-v2
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # CPU-only PyTorch: much smaller and faster than the default GPU build
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Run pipeline
+        run: python main.py
+
+      - name: Check the output isn't empty
+        run: |
+          python - <<'PY'
+          import json, sys
+          d = json.load(open("stories.json", encoding="utf-8"))
+          n = d.get("num_stories", 0)
+          print(f"Articles: {d.get('num_articles')}, Stories: {n}")
+          if n == 0:
+              # Keep yesterday's stories on the site rather than blanking it
+              sys.exit("No stories produced; not uploading.")
+          PY
+
+      - name: Send stories to Lovable
+        env:
+          INGEST_URL: ${{ secrets.INGEST_URL }}
+          INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
+        run: |
+          curl --fail-with-body -sS -X POST "$INGEST_URL" \
+            -H "Content-Type: application/json" \
+            -H "x-ingest-token: $INGEST_TOKEN" \
+            --data-binary @stories.json
+
+      - name: Keep a copy of this run's output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stories-${{ github.run_id }}
+          path: stories.json
+          retention-days: 5
+          if-no-files-found: ignore
