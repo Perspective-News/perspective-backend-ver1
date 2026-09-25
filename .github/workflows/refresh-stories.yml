@@ -1,122 +1,122 @@
-# Runs the Perspective News pipeline every 5 hours and sends the result
-# to the Lovable site's backend (a Lovable Cloud edge function).
-#
-# Put this file in the perspective-backend-ver1 repo at:
-#   .github/workflows/refresh-stories.yml
-#
-# Required repo secrets (Settings → Secrets and variables → Actions):
-#   INGEST_URL    – the full URL of the Lovable edge function, e.g.
-#                   https://<project-ref>.supabase.co/functions/v1/ingest-stories
-#   INGEST_TOKEN  – a long random string; the same value is saved as a
-#                   secret in Lovable so the function only accepts your uploads
+# # Runs the Perspective News pipeline every 5 hours and sends the result
+# # to the Lovable site's backend (a Lovable Cloud edge function).
+# #
+# # Put this file in the perspective-backend-ver1 repo at:
+# #   .github/workflows/refresh-stories.yml
+# #
+# # Required repo secrets (Settings → Secrets and variables → Actions):
+# #   INGEST_URL    – the full URL of the Lovable edge function, e.g.
+# #                   https://<project-ref>.supabase.co/functions/v1/ingest-stories
+# #   INGEST_TOKEN  – a long random string; the same value is saved as a
+# #                   secret in Lovable so the function only accepts your uploads
 
-name: Refresh stories
+# name: Refresh stories
 
-on:
-  schedule:
-    # GitHub cron is in UTC: 00:00, 05:00, 10:00, 15:00, 20:00 UTC
-    - cron: "0 */5 * * *"
-  workflow_dispatch: {} # adds a "Run workflow" button for manual runs
+# on:
+#   schedule:
+#     # GitHub cron is in UTC: 00:00, 05:00, 10:00, 15:00, 20:00 UTC
+#     - cron: "0 */5 * * *"
+#   workflow_dispatch: {} # adds a "Run workflow" button for manual runs
 
-# Never let two runs overlap; a new run waits for the previous one.
-concurrency:
-  group: refresh-stories
-  cancel-in-progress: false
+# # Never let two runs overlap; a new run waits for the previous one.
+# concurrency:
+#   group: refresh-stories
+#   cancel-in-progress: false
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
 
-jobs:
-  refresh:
-    runs-on: ubuntu-latest
-    timeout-minutes: 180
+# jobs:
+#   refresh:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 180
 
-    steps:
-      # Fails within seconds if the secrets are wrong, instead of after
-      # the 20+ minute scrape. Sends an empty body: Lovable answers 400
-      # ("invalid body") when the token is right and 401 when it's wrong.
-      - name: Check upload settings
-        env:
-          INGEST_URL: ${{ secrets.INGEST_URL }}
-          INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
-        run: |
-          url=$(printf '%s' "$INGEST_URL" | tr -d "[:space:]\"'")
-          tok=$(printf '%s' "$INGEST_TOKEN" | tr -d "[:space:]\"'")
-          if [ -z "$url" ]; then
-            echo "::error::The INGEST_URL secret is missing or empty."; exit 1
-          fi
-          case "$url" in
-            https://*) ;;
-            *) echo "::error::INGEST_URL must start with https://"; exit 1 ;;
-          esac
-          if [ -z "$tok" ]; then
-            echo "::error::The INGEST_TOKEN secret is missing or empty."; exit 1
-          fi
-          code=$(curl -sS -o "$RUNNER_TEMP/response.txt" -w '%{http_code}' -X POST "$url" \
-            -H "Content-Type: application/json" \
-            -H "x-ingest-token: $tok" -d '{}') || {
-            echo "::error::Could not reach INGEST_URL. Check the address and that the Lovable site is published."; exit 1; }
-          case "$code" in
-            400) echo "Lovable endpoint reachable and token accepted." ;;
-            401) echo "::error::Lovable rejected the token. INGEST_TOKEN in GitHub and in Lovable must be the exact same string."; exit 1 ;;
-            404) echo "::error::INGEST_URL not found (404). Check the address, and that the Lovable site is published."; exit 1 ;;
-            *) echo "::error::Unexpected HTTP $code from INGEST_URL."; cat "$RUNNER_TEMP/response.txt"; exit 1 ;;
-          esac
+#     steps:
+#       # Fails within seconds if the secrets are wrong, instead of after
+#       # the 20+ minute scrape. Sends an empty body: Lovable answers 400
+#       # ("invalid body") when the token is right and 401 when it's wrong.
+#       - name: Check upload settings
+#         env:
+#           INGEST_URL: ${{ secrets.INGEST_URL }}
+#           INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
+#         run: |
+#           url=$(printf '%s' "$INGEST_URL" | tr -d "[:space:]\"'")
+#           tok=$(printf '%s' "$INGEST_TOKEN" | tr -d "[:space:]\"'")
+#           if [ -z "$url" ]; then
+#             echo "::error::The INGEST_URL secret is missing or empty."; exit 1
+#           fi
+#           case "$url" in
+#             https://*) ;;
+#             *) echo "::error::INGEST_URL must start with https://"; exit 1 ;;
+#           esac
+#           if [ -z "$tok" ]; then
+#             echo "::error::The INGEST_TOKEN secret is missing or empty."; exit 1
+#           fi
+#           code=$(curl -sS -o "$RUNNER_TEMP/response.txt" -w '%{http_code}' -X POST "$url" \
+#             -H "Content-Type: application/json" \
+#             -H "x-ingest-token: $tok" -d '{}') || {
+#             echo "::error::Could not reach INGEST_URL. Check the address and that the Lovable site is published."; exit 1; }
+#           case "$code" in
+#             400) echo "Lovable endpoint reachable and token accepted." ;;
+#             401) echo "::error::Lovable rejected the token. INGEST_TOKEN in GitHub and in Lovable must be the exact same string."; exit 1 ;;
+#             404) echo "::error::INGEST_URL not found (404). Check the address, and that the Lovable site is published."; exit 1 ;;
+#             *) echo "::error::Unexpected HTTP $code from INGEST_URL."; cat "$RUNNER_TEMP/response.txt"; exit 1 ;;
+#           esac
 
-      - name: Check out code
-        uses: actions/checkout@v7
+#       - name: Check out code
+#         uses: actions/checkout@v7
 
-      - name: Set up Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: "3.11"
-          cache: pip
+#       - name: Set up Python
+#         uses: actions/setup-python@v7
+#         with:
+#           python-version: "3.11"
+#           cache: pip
 
-      - name: Cache embedding model
-        uses: actions/cache@v6
-        with:
-          path: ~/.cache/huggingface
-          key: hf-all-MiniLM-L6-v2
+#       - name: Cache embedding model
+#         uses: actions/cache@v6
+#         with:
+#           path: ~/.cache/huggingface
+#           key: hf-all-MiniLM-L6-v2
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          # CPU-only PyTorch: much smaller and faster than the default GPU build
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install -r requirements.txt
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           # CPU-only PyTorch: much smaller and faster than the default GPU build
+#           pip install torch --index-url https://download.pytorch.org/whl/cpu
+#           pip install -r requirements.txt
 
-      - name: Run pipeline
-        run: python main.py
+#       - name: Run pipeline
+#         run: python main.py
 
-      - name: Check the output isn't empty
-        run: |
-          python - <<'PY'
-          import json, sys
-          d = json.load(open("stories.json", encoding="utf-8"))
-          n = d.get("num_stories", 0)
-          print(f"Articles: {d.get('num_articles')}, Stories: {n}")
-          if n == 0:
-              # Keep yesterday's stories on the site rather than blanking it
-              sys.exit("No stories produced; not uploading.")
-          PY
+#       - name: Check the output isn't empty
+#         run: |
+#           python - <<'PY'
+#           import json, sys
+#           d = json.load(open("stories.json", encoding="utf-8"))
+#           n = d.get("num_stories", 0)
+#           print(f"Articles: {d.get('num_articles')}, Stories: {n}")
+#           if n == 0:
+#               # Keep yesterday's stories on the site rather than blanking it
+#               sys.exit("No stories produced; not uploading.")
+#           PY
 
-      - name: Send stories to Lovable
-        env:
-          INGEST_URL: ${{ secrets.INGEST_URL }}
-          INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
-        run: |
-          url=$(printf '%s' "$INGEST_URL" | tr -d "[:space:]\"'")
-          tok=$(printf '%s' "$INGEST_TOKEN" | tr -d "[:space:]\"'")
-          curl --fail-with-body -sS -X POST "$url" \
-            -H "Content-Type: application/json" \
-            -H "x-ingest-token: $tok" \
-            --data-binary @stories.json
+#       - name: Send stories to Lovable
+#         env:
+#           INGEST_URL: ${{ secrets.INGEST_URL }}
+#           INGEST_TOKEN: ${{ secrets.INGEST_TOKEN }}
+#         run: |
+#           url=$(printf '%s' "$INGEST_URL" | tr -d "[:space:]\"'")
+#           tok=$(printf '%s' "$INGEST_TOKEN" | tr -d "[:space:]\"'")
+#           curl --fail-with-body -sS -X POST "$url" \
+#             -H "Content-Type: application/json" \
+#             -H "x-ingest-token: $tok" \
+#             --data-binary @stories.json
 
-      - name: Keep a copy of this run's output
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: stories-${{ github.run_id }}
-          path: stories.json
-          retention-days: 5
-          if-no-files-found: ignore
+#       - name: Keep a copy of this run's output
+#         if: always()
+#         uses: actions/upload-artifact@v7
+#         with:
+#           name: stories-${{ github.run_id }}
+#           path: stories.json
+#           retention-days: 5
+#           if-no-files-found: ignore
